@@ -3,7 +3,7 @@ import {
     isStr,
     isFn,
     isUndefined
-} from "../../shared/utils"
+} from "../shared/utils"
 import {
     FunctionComponent,
     ClassComponent,
