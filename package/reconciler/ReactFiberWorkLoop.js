@@ -1,4 +1,5 @@
 // 负责整个 React 的执行流程
+import beginWork from "./ReactFiberBeginWork"
 
 // work in progress 表示正在工作的 FiberNode 对象
 let wip = null
