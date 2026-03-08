@@ -38,3 +38,57 @@ export function isFn(fn) {
 export function isUndefined(s) {
     return s === undefined;
 }
+
+/**
+ * 用于更新 DOM 节点上的属性
+ * @param {*} node 真实的 DOM 节点
+ * @param {*} preVal 旧值
+ * @param {*} nextVal 新值
+ */
+export function updateNode(node, preVal, nextVal) {
+    // 1. 对旧值处理
+    Object.keys(preVal).forEach(key => {
+        if (key === 'children') {
+            if (isStr(preVal[key])) {
+                // 文本节点，children为字符串，需要设置为空字符串
+                node.textContext = ''
+            }
+        }
+        else if (key.startsWith('on')) {
+            // on 开头 绑定事件，那么需要移除该旧值
+            const eventName = key.slice(2).toLowerCase // 获取到事件名
+            if (eventName === 'change') {
+                // 如果是 onChange 那么绑定的是 input 事件
+                eventName = 'input'
+            }
+            node.removeEventListener(eventName, preVal[key])
+        }
+        else {
+            // 普通属性，如 id, className
+            // 只清除不在新值中的部分
+            node[key] = ""
+        }
+    })
+
+    // 2. 对新值处理
+    Object.keys(nextVal).forEach((k) => {
+        if (k === "children") {
+            // 需要判断是否是文本节点
+            if (isStr(nextVal[k])) {
+                node.textContent = nextVal[k];
+            }
+        } else if (k.startsWith("on")) {
+            // 说明是绑定事件
+            let eventName = k.slice(2).toLowerCase();
+
+            if (eventName === "change") {
+                eventName = "input";
+            }
+
+            node.addEventListener(eventName, nextVal[k]);
+        } else {
+            // 进入此分支，说明是普通的属性
+            node[k] = nextVal[k];
+        }
+    });
+}
