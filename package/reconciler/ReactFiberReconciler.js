@@ -1,4 +1,5 @@
 import { updateNode } from "../shared/utils"
+import { reconcileChildren } from "./ReactChildFiber"
 
 /**
  * 
@@ -11,6 +12,9 @@ export function updateHostComponent(wip) {
         // 更新节点上的属性
         updateNode(wip.stateNode, {}, wip.props)
         // console.log("===更新属性后", wip.stateNode)
+        // stateNode 有值、即有DOM节点后，开始处理子节点
+        reconcileChildren(wip, wip.props.children)
+        console.log(wip)
     }
 }
 
