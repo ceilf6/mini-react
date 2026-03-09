@@ -9,6 +9,13 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 // )
 root.render(
     <div>
-        test
+        test1
+        <div>
+            text2
+            <div>
+                test3
+            </div>
+            test4
+        </div>
     </div>
 )
