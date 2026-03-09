@@ -92,3 +92,13 @@ export function updateNode(node, preVal, nextVal) {
         }
     });
 }
+
+/**
+ * 判断参数 arr 是否为数组
+ * 封装一层，统一、并且减少后面开发的代码量
+ * @param {*} arr
+ * @returns
+ */
+export function isArray(arr) {
+    return Array.isArray(arr);
+}
